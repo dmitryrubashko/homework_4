@@ -27,17 +27,14 @@ getPokemonFullInfo('pikachu'); // getPokemonFullInfo('Dima') // previous code wi
 
 // task_3
 
-const pokeapiURL = 'https://pokeapi.co/api/v2/pokemon/';
-
-const pokemon_1 = fetch(`${pokeapiURL}1`).then(pokemon => pokemon.json());
-const pokemon_2 = fetch(`${pokeapiURL}2`).then(pokemon => pokemon.json());
-const pokemon_3 = fetch(`${pokeapiURL}3`).then(pokemon => pokemon.json());
-const pokemon_4 = fetch(`${pokeapiURL}4`).then(pokemon => pokemon.json());
-const pokemon_5 = fetch(`${pokeapiURL}5`).then(pokemon => pokemon.json());
-
-const getFullInfoArray = async () => {
+const pokeapiURL = 'https://pokeapi.co/api/v2/pokemon/?limit=99';
+const getfullInfoArray = async () => {
+    const responce = await fetch(pokeapiURL);
+    const result = await responce.json();
+    const UrlsArray = result.results.map(pokemon => pokemon.url);
+    const fullInfoArray = UrlsArray.map(url => fetch(url).then(pokemon => pokemon.json()));
     try {
-        const responses = await Promise.all([pokemon_1, pokemon_2, pokemon_3, pokemon_4, pokemon_5]);
+        const responses = await Promise.all(fullInfoArray);
         console.log(responses)
     } catch (error) {
         console.log ('Error', error)
@@ -46,4 +43,6 @@ const getFullInfoArray = async () => {
     }
 }
 
-getFullInfoArray()
+getfullInfoArray()
+
+
