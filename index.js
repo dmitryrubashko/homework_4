@@ -41,11 +41,11 @@ const pokeapiURL = 'https://pokeapi.co/api/v2/pokemon/?limit=99';
 const getfullInfoArray = async () => {
     
     try {
-        const responceFromPokeapi = await fetch(pokeapiURL);
-        const resultOfRequestPokeapi = await responceFromPokeapi.json();
-        const urlsArray = resultOfRequestPokeapi.results.map(pokemon => pokemon.url);
-        const fullInfoArray = urlsArray.map(url => fetch(url).then(pokemon => pokemon.json()));
-        const responses = await Promise.all(fullInfoArray);
+        const pokemonListResponse = await fetch(pokeapiURL);
+        const pokemonDetailsRequestUrls = await pokemonListResponse.json();
+        const urlsArray = pokemonDetailsRequestUrls.results.map(pokemon => pokemon.url);
+        const detailedPokemonsList = urlsArray.map(url => fetch(url).then(pokemon => pokemon.json()));
+        const responses = await Promise.all(detailedPokemonsList);
         console.log(responses)
     } catch (error) {
         console.log ('Error', error)
