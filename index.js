@@ -21,7 +21,7 @@ let pokemonURL = 'https://pokeapi.co/api/v2/pokemon/';
 const getPokemonFullInfo = async (pokemonName) => {
     
     try {
-        pokemonURL = pokemonURL+`${pokemonName}`;
+        pokemonURL = `${pokemonURL}${pokemonName}`;
         const responceFromPokeapi = await fetch(pokemonURL);
         const resultOfRequestPokeapi = await responceFromPokeapi.json();
         console.log(resultOfRequestPokeapi)
